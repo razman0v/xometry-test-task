@@ -27,11 +27,7 @@ export class SignUpPage {
   }
 
   async goTo() {
-    await this.page.route('**/*.{png,jpg,jpeg,svg,woff,woff2}', route => route.abort());
-    await this.page.route('**/*{google-analytics,googletagmanager,hotjar,facebook,intercom}*', route => route.abort());
-
-    await this.page.goto('/sign_up', { waitUntil: 'commit' });
-    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.goto('/sign_up');
 
     try {
       if (await this.acceptCookiesButton.isVisible({ timeout: 3000 })) {
