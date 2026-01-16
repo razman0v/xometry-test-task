@@ -8,11 +8,14 @@
 - Node.js (Runtime)
 
 ## Установка
-1. Клонируйте репозиторий
+1. Клонируйте репозиторий 
+  ```bash
+  https://github.com/razman0v/xometry-test-task
+  ```
 2. Установите зависимости:
-   ```bash
-   npm install
-   ```
+  ```bash
+  npm install
+  ```
   ```bash
 3. npx playwright install
   ```

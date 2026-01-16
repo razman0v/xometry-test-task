@@ -9,7 +9,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   fullyParallel: false,
-  reporter: 'html',
+  reporter: [['list'], ['html']],
   use: {
     baseURL: 'https://get.preprod.xometry.eu',
     trace: 'retain-on-failure',
