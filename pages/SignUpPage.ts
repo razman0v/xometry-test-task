@@ -28,14 +28,7 @@ export class SignUpPage {
 
   async goTo() {
     await this.page.goto('/sign_up');
-
-    try {
-      if (await this.acceptCookiesButton.isVisible({ timeout: 3000 })) {
-        await this.acceptCookiesButton.click();
-      };
-    } catch (e) {
-
-    }
+    await this.acceptCookiesButton.click();
   }
 
   async fillBaseData(fullName: string, jobTitle: string, phone: string) {
