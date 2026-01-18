@@ -1,44 +1,45 @@
 # Xometry SignUp Test Automation
 
-Тестовое задание на проверку валидацию поля Email в форме регистрации.
+Test task to verify the validation of the Email field in the registration form.
 
-## Стек технологий
+## Technology Stack
 - Playwright (Test Runner)
 - TypeScript (Language)
 - Node.js (Runtime)
 
-## Установка
-1. Клонируйте репозиторий 
+## Installation
+1. Clone the repository:
   ```bash
   https://github.com/razman0v/xometry-test-task
   ```
-2. Установите зависимости:
+2. Install dependencies:
   ```bash
   npm install
   ```
+3. Install Playwright browsers:
   ```bash
-3. npx playwright install
+  npx playwright install
   ```
+4. Run the tests:
   ```bash
-4. npx playwright test
+  npx playwright test
   ```
 
+As part of this task, the following checks have been implemented for the Email field:
 
-В рамках задания реализованы следующие проверки для поля Email:
+## Negative Scenarios:
 
-## Негативные сценарии:
+- Invalid formats check: (missing @, missing domain, trailing dots, etc.).
+- Empty field check: (Required validation).
+- Existing user check: (Email already exists).
 
-Проверка некорректных форматов (без @, без домена, с точками в конце и т.д.).
-Проверка пустого поля (Required validation).
-Проверка уже существующего пользователя (Email already exists).
+## Positive Scenarios:
 
-## Позитивные сценарии:
+- Registration with a valid email.
+- Support for valid formats: (Aliases with +, Upper Case, digits, hyphens).
 
-Регистрация с валидным email.
-Поддержка сложных валидных форматов (Alias с +, Upper Case, цифры, дефисы).
+## Project Structure
 
-## Структура проекта
-
-pages/SignUpPage.ts — Page Object.
-tests/SignUpTests.spec.ts — Тестовые сценарии.
-playwright.config.ts — Конфигурация запуска.
+- pages/SignUpPage.ts — Page Object.
+- tests/SignUpTests.spec.ts — Test scenarios.
+- playwright.config.ts — Launch configuration (configured for CI/CD).
