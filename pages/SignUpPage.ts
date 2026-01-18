@@ -19,7 +19,7 @@ export class SignUpPage {
     this.emailInput = page.getByPlaceholder('Email');
     this.jobTitleInput = page.getByPlaceholder('Job Title');
     this.phoneInput = page.getByPlaceholder('Phone');
-    this.submitButton = page.getByRole('button', { name: 'Join Xometry' });
+    this.submitButton = page.locator('button[type="submit"]');
 
     this.emailErrorText = page.getByText('Wrong email format', { exact: true });
     this.emailRequired = page.getByText('Required', { exact: true });

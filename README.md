@@ -1,4 +1,4 @@
-# Xometry SignUp Test Automation
+# SignUp Test Automation
 
 Test task to verify the validation of the Email field in the registration form.
 

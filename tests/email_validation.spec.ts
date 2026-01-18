@@ -69,7 +69,7 @@ test.describe('Email Validation Tests', () => {
   }
 
   test('should accept a valid email address', async () => {
-    const uniqueEmail = `Testexisting_user@xometry.com`;
+    const uniqueEmail = `Testexisting_user@email.com`;
     await signUpPage.emailInput.fill(uniqueEmail);
     await signUpPage.submitForm();
     await expect(signUpPage.emailErrorText).not.toBeVisible();
@@ -82,7 +82,7 @@ test.describe('Email Validation Tests', () => {
   });
 
   test.skip('should show "Email already exists" error for duplicate email', async () => {
-    const duplicateEmail = 'Testexisting_user@xometry.com';
+    const duplicateEmail = 'Testexisting_user@email.com';
     await signUpPage.emailInput.fill(duplicateEmail);
     await signUpPage.submitForm();
     await expect(signUpPage.emailExistsError).toBeVisible();
