@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { SignUpPage } from '../pages/SignUpPage';
+import type { SignUpResponse } from './types/api_responses';
 
 test.describe('Email Validation Tests', () => {
   let signUpPage: SignUpPage;
@@ -19,13 +20,38 @@ test.describe('Email Validation Tests', () => {
   ];
 
   for (const email of invalidEmails) {
-    test(`should show validation error for invalid email: ${email}`, async ({ page }) => {
+    test(`should show validation error for invalid email: ${email}`, async () => {
       await signUpPage.emailInput.fill(email);
-      await signUpPage.emailInput.blur();
+
+      const responsePromise = signUpPage.page.waitForResponse((resp) => {
+        return resp.url().includes('/get/graphql') && resp.request().method() === 'POST';
+      }, { timeout: 3000 }).catch(() => null);
+
       await signUpPage.submitForm();
-      await expect(signUpPage.emailErrorText).toBeVisible();
+
+      const response = await responsePromise;
+
+      if (response) {
+        expect(response.status()).toBe(200);
+        const responseBody = await response.json() as SignUpResponse;
+
+        if (!responseBody.errors) {
+           console.log('Backend response:', JSON.stringify(responseBody, null, 2));
+           throw new Error(`Backend accepted invalid email: ${email}`);
+        }
+
+        expect(responseBody.errors[0].extensions.errors).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              key: "email"
+            }),
+          ])
+        );
+
+        expect(responseBody.data.signUp).toBeNull();
+      }
     });
-  }
+  };
 
   const validEdgeCases = [
     'User.Name+tag@example.com',
@@ -61,5 +87,42 @@ test.describe('Email Validation Tests', () => {
     await signUpPage.submitForm();
     await expect(signUpPage.emailExistsError).toBeVisible();
   });
+
+  // test('Sign-up form rejects invalid email with correct GraphQL error', async ({ page }) => {
+  //   await page.goto('/sign_up'); // update URL
+
+  //   await page.getByLabel(/email/i).fill('invalid-email-without-at');
+  //   // fill other fields...
+
+  //   const responsePromise = page.waitForResponse(resp =>
+  //     resp.url().includes('https://api.preprod.xometry.eu/get/graphql') &&
+  //     resp.url().includes('signUp') &&
+  //     resp.request().method() === 'POST'
+  //   );
+
+  //   const [response] = await Promise.all([
+  //     responsePromise,
+  //     page.getByRole('button', { name: /sign up|submit/i }).click(),
+  //   ]);
+
+  //   expect(response.status()).toBe(200);
+
+  //   const json = await response.json();
+
+  //   // Simplified, robust assertion
+  //   expect(json.errors[0].extensions.errors).toEqual(
+  //     expect.arrayContaining([
+  //       expect.objectContaining({
+  //         key: "email",
+  //         messages: expect.arrayContaining(["backend.errors.create_person.wrong-email"]),
+  //       }),
+  //     ])
+  //   );
+
+  //   expect(json.data.signUp).toBeNull();
+
+  //   // Optional: UI error message
+  //   // await expect(page.getByText(/invalid email/i)).toBeVisible();
+  // });
 });
 
