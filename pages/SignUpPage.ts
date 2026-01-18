@@ -23,7 +23,7 @@ export class SignUpPage {
 
     this.emailErrorText = page.getByText('Wrong email format');
     this.emailRequired = page.getByText('Required', { exact: true });
-    this.emailExistsError = page.getByText(/Email already exists/i);
+    this.emailExistsError = page.getByText('Email already exists');
   }
 
   async goTo() {
