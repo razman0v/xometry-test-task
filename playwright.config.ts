@@ -15,7 +15,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     viewport: { width: 1920, height: 1080 },
-    headless: false,
+    headless: true,
     ignoreHTTPSErrors: true,
   },
   projects: [
