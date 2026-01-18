@@ -22,11 +22,6 @@ test.describe('Email Validation Tests', () => {
     test(`should show validation error for invalid email: ${email}`, async ({ page }) => {
       await signUpPage.emailInput.fill(email);
       await signUpPage.emailInput.blur();
-      await page.evaluate(() => {
-        const form = document.querySelector('form');
-        if (!form) return;
-        form.addEventListener('submit', e => e.preventDefault(), { once: true });
-      });
       await signUpPage.submitForm();
       await expect(signUpPage.emailErrorText).toBeVisible();
     });
