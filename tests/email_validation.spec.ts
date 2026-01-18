@@ -87,42 +87,5 @@ test.describe('Email Validation Tests', () => {
     await signUpPage.submitForm();
     await expect(signUpPage.emailExistsError).toBeVisible();
   });
-
-  // test('Sign-up form rejects invalid email with correct GraphQL error', async ({ page }) => {
-  //   await page.goto('/sign_up'); // update URL
-
-  //   await page.getByLabel(/email/i).fill('invalid-email-without-at');
-  //   // fill other fields...
-
-  //   const responsePromise = page.waitForResponse(resp =>
-  //     resp.url().includes('https://api.preprod.xometry.eu/get/graphql') &&
-  //     resp.url().includes('signUp') &&
-  //     resp.request().method() === 'POST'
-  //   );
-
-  //   const [response] = await Promise.all([
-  //     responsePromise,
-  //     page.getByRole('button', { name: /sign up|submit/i }).click(),
-  //   ]);
-
-  //   expect(response.status()).toBe(200);
-
-  //   const json = await response.json();
-
-  //   // Simplified, robust assertion
-  //   expect(json.errors[0].extensions.errors).toEqual(
-  //     expect.arrayContaining([
-  //       expect.objectContaining({
-  //         key: "email",
-  //         messages: expect.arrayContaining(["backend.errors.create_person.wrong-email"]),
-  //       }),
-  //     ])
-  //   );
-
-  //   expect(json.data.signUp).toBeNull();
-
-  //   // Optional: UI error message
-  //   // await expect(page.getByText(/invalid email/i)).toBeVisible();
-  // });
 });
 
