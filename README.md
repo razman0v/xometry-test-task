@@ -10,7 +10,7 @@ Test task to verify the validation of the Email field in the registration form.
 ## Installation
 1. Clone the repository:
   ```bash
-  https://github.com/razman0v/xometry-test-task
+  https://github.com/razman0v/login-test-task
   ```
 2. Install dependencies:
   ```bash
